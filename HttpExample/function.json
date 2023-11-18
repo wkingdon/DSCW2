@@ -15,6 +15,13 @@
       "type": "http",
       "direction": "out",
       "name": "$return"
+    },
+    {
+      "type": "sql",
+      "direction": "out",
+      "name": "toDoItems",
+      "commandText": "dbo.ToDo",
+      "connectionStringSetting": "SqlConnectionString"
     }
   ]
 }
