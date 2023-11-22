@@ -1,0 +1,7 @@
+SELECT TOP (1000) [entryId]
+      ,[sensorId]
+      ,[temperature]
+      ,[wind]
+      ,[humidity]
+      ,[co2]
+  FROM [dbo].[sensorData]

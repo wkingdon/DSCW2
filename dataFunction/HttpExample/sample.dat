@@ -1,3 +1,7 @@
 {
-    "name": "Azure"
+    "sID": 1,
+    "temp": 12,
+    "wind": 17,
+    "humidity": 60,
+    "co2": 700
 }

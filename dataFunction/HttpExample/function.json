@@ -7,7 +7,6 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get",
         "post"
       ]
     },
@@ -19,8 +18,8 @@
     {
       "type": "sql",
       "direction": "out",
-      "name": "toDoItems",
-      "commandText": "dbo.ToDo",
+      "name": "sensorDataItems",
+      "commandText": "dbo.sensorData",
       "connectionStringSetting": "SqlConnectionString"
     }
   ]
