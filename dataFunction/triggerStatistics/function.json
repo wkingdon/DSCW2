@@ -1,0 +1,20 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "sensorDataChange",
+      "type": "sqlTrigger",
+      "direction": "in",
+      "tableName": "dbo.sensorData",
+      "connectionStringSetting": "SqlConnectionString"
+    },
+    {
+      "type": "sql",
+      "direction": "in",
+      "name": "sensorDataItems",
+      "commandText": "select [entryId], [sensorId], [temperature], [wind], [humidity], [co2] from dbo.sensorData",
+      "commandType": "Text",
+      "connectionStringSetting": "SqlConnectionString"
+    }
+  ]
+}

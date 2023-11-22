@@ -4,6 +4,7 @@ import azure.functions as func
 
 
 def main(req: func.HttpRequest, sensorDataItems: func.Out[func.SqlRow]) -> func.HttpResponse:
+    logging.info(f"POST:")
     inputData = {}
     try:
         req_body = req.get_json()
