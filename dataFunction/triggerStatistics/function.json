@@ -11,9 +11,16 @@
     {
       "type": "sql",
       "direction": "in",
-      "name": "sensorDataItems",
-      "commandText": "select [entryId], [sensorId], [temperature], [wind], [humidity], [co2] from dbo.sensorData",
+      "name": "sensorStatsInput",
+      "commandText": "select [sensorId], [count], [temperatureMin], [windMin], [humidityMin], [co2Min], [temperatureMax], [windMax], [humidityMax], [co2Max], [temperatureAvg], [windAvg], [humidityAvg], [co2Avg] from dbo.sensorStats",
       "commandType": "Text",
+      "connectionStringSetting": "SqlConnectionString"
+    },
+    {
+      "type": "sql",
+      "direction": "out",
+      "name": "sensorStatsOutput",
+      "commandText": "dbo.sensorStats",
       "connectionStringSetting": "SqlConnectionString"
     }
   ]
