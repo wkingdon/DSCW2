@@ -26,9 +26,4 @@ def main(req: func.HttpRequest, sensorDataItems: func.Out[func.SqlRow]) -> func.
     sensorDataItems.set(func.SqlRow(inputData))
     
     return func.HttpResponse("Data Written successfully")
-    # if name:
-    # else:
-    #     return func.HttpResponse(
-    #         "Please pass a name on the query string or in the request body",
-    #         status_code=400
-    #     )
+

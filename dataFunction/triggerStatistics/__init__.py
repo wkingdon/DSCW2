@@ -13,6 +13,8 @@ def main(sensorDataChange, sensorStatsInput: func.SqlRowList, sensorStatsOutput:
     # dump database data into rows
     statsRows = list(map(lambda r: json.loads(r.to_json()), sensorStatsInput)) 
     
+    rowsToUpdate  = []
+    
     # logging.info(json.dumps(statsRows))
     for item in json.loads(sensorDataChange):
         sensor = item['Item']
@@ -20,10 +22,11 @@ def main(sensorDataChange, sensorStatsInput: func.SqlRowList, sensorStatsOutput:
         sensorIndex = findStatsIndex(statsRows, sensorId)
         
         
-        logging.info(f"SQL Changes from sensor: {sensorId}")
+        logging.info(f"SQL Changes from sensor: {sensorId}: {sensorIndex}")
+        # logging.info(json.dumps(statsRows))
         
         if( sensorIndex == -1):
-            sensorStatsOutput.set(func.SqlRow({
+            rowsToUpdate.append({
                 "sensorId": sensorId, "count": 1,
                 "temperatureMin": sensor['temperature'],
                 "windMin": sensor['wind'],
@@ -37,10 +40,11 @@ def main(sensorDataChange, sensorStatsInput: func.SqlRowList, sensorStatsOutput:
                 "windAvg": sensor['wind'], 
                 "humidityAvg": sensor['humidity'], 
                 "co2Avg": sensor['co2']
-            }))
+            })
+            continue
         else:
             stat = statsRows[sensorIndex]
-            sensorStatsOutput.set(func.SqlRow({
+            rowsToUpdate.append({
                 "sensorId": sensorId, "count": stat['count'] + 1,
                 "temperatureMin": min(stat['temperatureMin'], sensor['temperature']),
                 "windMin": min(stat['windMin'], sensor['wind']),
@@ -54,6 +58,9 @@ def main(sensorDataChange, sensorStatsInput: func.SqlRowList, sensorStatsOutput:
                 "windAvg": ((stat['windAvg'] * stat['count']) + sensor['wind']) / (stat['count'] + 1), 
                 "humidityAvg": ((stat['humidityAvg'] * stat['count']) + sensor['humidity']) / (stat['count'] + 1), 
                 "co2Avg": ((stat['co2Avg'] * stat['count']) + sensor['co2']) / (stat['count'] + 1)
-            }))
+            })
+            continue
+    
+    sensorStatsOutput.set(func.SqlRowList(rowsToUpdate))
         
     
